@@ -1,0 +1,59 @@
+{
+  "date": "2026-07-29",
+  "competitions": {
+    "Régionale 3": {
+      "equipes": 40,
+      "rencontres": 5,
+      "classementBrut": [
+        {
+          "club": "AS Penne St Sylvestre",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        },
+        {
+          "club": "Amicale Sportive Eymetoise",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        },
+        {
+          "club": "La Brede Rugby",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        }
+      ]
+    },
+    "Fédérale 1 Féminine": {
+      "equipes": 32,
+      "rencontres": 5,
+      "classementBrut": [
+        {
+          "club": "Entente Sp Bruges Blanquefort",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        },
+        {
+          "club": "Jse Sp Villeneuve de Marsan",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        },
+        {
+          "club": "US Dax Rugby",
+          "position": 0,
+          "stats": {
+            "pointTerrain": 0
+          }
+        }
+      ]
+    }
+  }
+}
