@@ -323,11 +323,42 @@
   @keyframes esbb-line-in{from{opacity:0;transform:translate3d(0,-11px,42px)}to{opacity:1;transform:translate3d(0,0,0)}}
   @keyframes esbb-floor{from{opacity:0}to{opacity:.5}}
   @keyframes esbb-bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  @media (max-width:640px){.esbb-stage{transform-origin:50% 40%;zoom:.68}}
+  /* --- petits écrans : version à plat, sans 3D ni masque animé (fiable sur iOS) --- */
+  @media (max-width:720px){
+    .esbb-persp{perspective:none;perspective-origin:50% 50%}
+    .esbb-stage{width:300px;height:330px;transform:none!important;transform-style:flat;animation:none}
+    .esbb-shadow,.esbb-slab{display:none}
+    .esbb-face{left:0;top:0;width:300px;height:300px;background-size:300px 300px;
+      transform:none;opacity:0;
+      mask-image:none;-webkit-mask-image:none;
+      animation:esbb-pop .9s cubic-bezier(.2,.75,.3,1) .15s forwards;
+      filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
+    .esbb-words{top:24px;gap:0;transform:none;transform-style:flat}
+    .esbb-words b{font-size:23px;transform:none}
+    .esbb-words b:nth-child(1){font-size:23px;animation-delay:.5s}
+    .esbb-words b:nth-child(2){font-size:19.5px;animation-delay:.62s}
+    .esbb-words b:nth-child(3){font-size:23px;animation-delay:.74s}
+    .esbb-words b:nth-child(4){font-size:14px;margin-top:5px;animation-delay:.86s}
+    @keyframes esbb-line-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+  }
+  @keyframes esbb-pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+  /* --- intro déjà vue récemment : aucun voile, aucun clignotement --- */
+  html.esbb-vu #esbb-loader{display:none!important}
+  html.esbb-vu,html.esbb-vu body{overflow:visible!important}
   @media (prefers-reduced-motion:reduce){
     #esbb-loader *{animation-duration:.01s!important;animation-delay:0s!important}
     .esbb-face,.esbb-slab{mask-position:0 0!important;-webkit-mask-position:0 0!important;opacity:1!important}}
 </style>
+<script>
+/* L'intro ne rejoue pas si elle a été vue dans les 12 dernières heures :
+   on décide ici, avant le premier tracé, pour éviter tout clignotement. */
+(function(){
+  try{
+    var t = +localStorage.getItem("esbb-intro") || 0;
+    if (Date.now() - t < 12*3600*1000) document.documentElement.className += " esbb-vu";
+  }catch(e){}
+})();
+</script>
 </head>
 <body class="esbb-loading">
 
@@ -877,9 +908,22 @@ renderSeasons(); renderAll(); save();
 <script id="esbb-loader-js">
 (function () {
   var ESBB_MIN_MS = 3200;   // durée mini d'affichage (fin de l'animation)
-  var ESBB_MAX_MS = 8000;   // filet de sécurité si un asset ne charge pas
+  var ESBB_MAX_MS = 5000;   // filet de sécurité si quelque chose ne charge pas
   var el = document.getElementById('esbb-loader');
   if (!el) return;
+
+  // intro déjà vue récemment : on retire tout de suite
+  if (/\besbb-vu\b/.test(document.documentElement.className)) {
+    el.parentNode && el.parentNode.removeChild(el);
+    document.documentElement.classList.remove('esbb-loading');
+    document.addEventListener('DOMContentLoaded', function(){
+      document.body && document.body.classList.remove('esbb-loading');
+    });
+    return;
+  }
+  try { localStorage.setItem('esbb-intro', String(Date.now())); } catch(e) {}
+  el.addEventListener('click', function(){ hide(); });   // un appui passe l'intro
+
   var t0 = Date.now(), hidden = false;
   function hide() {
     if (hidden) return;
