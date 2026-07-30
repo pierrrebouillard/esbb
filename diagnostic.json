@@ -1,9 +1,10 @@
 {
-  "date": "2026-07-29",
+  "date": "2026-07-30",
   "competitions": {
     "Régionale 3": {
-      "equipes": 40,
-      "rencontres": 5,
+      "journees": 18,
+      "rencontres": 90,
+      "classement": 10,
       "classementBrut": [
         {
           "club": "AS Penne St Sylvestre",
@@ -29,8 +30,9 @@
       ]
     },
     "Fédérale 1 Féminine": {
-      "equipes": 32,
-      "rencontres": 5,
+      "journees": 14,
+      "rencontres": 56,
+      "classement": 8,
       "classementBrut": [
         {
           "club": "Entente Sp Bruges Blanquefort",

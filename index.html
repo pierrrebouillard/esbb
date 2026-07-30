@@ -540,75 +540,107 @@ const STADES = {
 
 /* @@DONNEES-DEBUT@@  bloc réécrit automatiquement chaque lundi — ne pas éditer à la main */
 const OFFICIEL = {
-  /* ---------- SAISON EN COURS ---------- */
   "2026-2027": [
-    /* Régionale 3 — Championnat Territorial */
-    {c:R3, j:"J1",  date:"2026-09-20", time:"15:00", lieu:"ext", adv:"SC Saint Aubin"},
-    {c:R3, j:"J2",  date:"2026-09-27", time:"15:00", lieu:"dom", adv:"RC Cubzaguais"},
-    {c:R3, j:"J3",  date:"2026-10-04", time:"15:00", lieu:"ext", adv:"Amicale Sportive Eymetoise"},
-    {c:R3, j:"J4",  date:"2026-10-18", time:"15:00", lieu:"ext", adv:"US Roquentin Laroque Timbaut"},
-    {c:R3, j:"J5",  date:"2026-10-25", time:"15:00", lieu:"dom", adv:"4 C XV"},
-    {c:R3, j:"J6",  date:"2026-11-08", time:"15:00", lieu:"ext", adv:"La Brede Rugby"},
-    {c:R3, j:"J7",  date:"2026-11-15", time:"15:00", lieu:"dom", adv:"AS Penne St Sylvestre"},
-    {c:R3, j:"J8",  date:"2026-11-22", time:"15:00", lieu:"ext", adv:"SC Captieux"},
-    {c:R3, j:"J9",  date:"2026-12-06", time:"15:00", lieu:"dom", adv:"Rugby Association Pays Isle Dronne 33"},
-    {c:R3, j:"J10", date:"2026-12-13", time:"15:00", lieu:"dom", adv:"SC Saint Aubin"},
-    {c:R3, j:"J11", date:"2027-01-10", time:"15:00", lieu:"ext", adv:"RC Cubzaguais"},
-    {c:R3, j:"J12", date:"2027-01-17", time:"15:00", lieu:"dom", adv:"Amicale Sportive Eymetoise"},
-    {c:R3, j:"J13", date:"2027-01-31", time:"15:00", lieu:"dom", adv:"US Roquentin Laroque Timbaut"},
-    {c:R3, j:"J14", date:"2027-02-07", time:"15:00", lieu:"ext", adv:"4 C XV"},
-    {c:R3, j:"J15", date:"2027-02-28", time:"15:00", lieu:"dom", adv:"La Brede Rugby"},
-    {c:R3, j:"J16", date:"2027-03-07", time:"15:00", lieu:"ext", adv:"AS Penne St Sylvestre"},
-    {c:R3, j:"J17", date:"2027-03-14", time:"15:00", lieu:"dom", adv:"SC Captieux"},
-    {c:R3, j:"J18", date:"2027-03-28", time:"15:00", lieu:"ext", adv:"Rugby Association Pays Isle Dronne 33"},
-    /* Fédérale 1 Féminine */
-    {c:F1F, j:"J1",  date:"2026-10-11", time:"15:00", lieu:"ext", adv:"Stado Tarbes Pyrénées Rugby"},
-    {c:F1F, j:"J2",  date:"2026-10-18", time:"15:00", lieu:"dom", adv:"JSE SP Villeneuve de Marsan"},
-    {c:F1F, j:"J3",  date:"2026-11-08", time:"15:00", lieu:"ext", adv:"Toulouse UC"},
-    {c:F1F, j:"J4",  date:"2026-11-15", time:"15:00", lieu:"dom", adv:"Lons Section Paloise Rugby Féminin"},
-    {c:F1F, j:"J5",  date:"2026-11-29", time:"15:00", lieu:"ext", adv:"Toulouse Cheminots Marengo S"},
-    {c:F1F, j:"J6",  date:"2026-12-06", time:"15:00", lieu:"dom", adv:"US Dax Rugby"},
-    {c:F1F, j:"J7",  date:"2027-01-31", time:"15:00", lieu:"ext", adv:"Union Athlétique Gaillacoise Rugby"},
-    {c:F1F, j:"J8",  date:"2027-02-07", time:"15:00", lieu:"dom", adv:"Stado Tarbes Pyrénées Rugby"},
-    {c:F1F, j:"J9",  date:"2027-02-28", time:"15:00", lieu:"ext", adv:"JSE SP Villeneuve de Marsan"},
-    {c:F1F, j:"J10", date:"2027-03-07", time:"15:00", lieu:"dom", adv:"Toulouse UC"},
-    {c:F1F, j:"J11", date:"2027-03-21", time:"15:00", lieu:"ext", adv:"Lons Section Paloise Rugby Féminin"},
-    {c:F1F, j:"J12", date:"2027-03-28", time:"15:00", lieu:"dom", adv:"Toulouse Cheminots Marengo S"},
-    {c:F1F, j:"J13", date:"2027-04-18", time:"15:00", lieu:"ext", adv:"US Dax Rugby"},
-    {c:F1F, j:"J14", date:"2027-04-25", time:"15:00", lieu:"dom", adv:"Union Athlétique Gaillacoise Rugby"}
+    {c:"Régionale 3", j:"J1", date:"2026-09-20", time:"15:00", lieu:"ext", adv:"SC Saint Aubin"},
+    {c:"Régionale 3", j:"J2", date:"2026-09-27", time:"15:00", lieu:"dom", adv:"RC Cubzaguais"},
+    {c:"Régionale 3", j:"J3", date:"2026-10-04", time:"15:00", lieu:"ext", adv:"Amicale Sportive Eymetoise"},
+    {c:"Régionale 3", j:"J4", date:"2026-10-18", time:"15:00", lieu:"ext", adv:"US Roquentin Laroque Timbaut"},
+    {c:"Régionale 3", j:"J5", date:"2026-10-25", time:"15:00", lieu:"dom", adv:"4 C XV"},
+    {c:"Régionale 3", j:"J6", date:"2026-11-08", time:"15:00", lieu:"ext", adv:"La Brede Rugby"},
+    {c:"Régionale 3", j:"J7", date:"2026-11-15", time:"15:00", lieu:"dom", adv:"AS Penne St Sylvestre"},
+    {c:"Régionale 3", j:"J8", date:"2026-11-22", time:"15:00", lieu:"ext", adv:"SC Captieux"},
+    {c:"Régionale 3", j:"J9", date:"2026-12-06", time:"15:00", lieu:"dom", adv:"Rugby Association Pays Isle Dronne 33"},
+    {c:"Régionale 3", j:"J10", date:"2026-12-13", time:"15:00", lieu:"dom", adv:"SC Saint Aubin"},
+    {c:"Régionale 3", j:"J11", date:"2027-01-10", time:"15:00", lieu:"ext", adv:"RC Cubzaguais"},
+    {c:"Régionale 3", j:"J12", date:"2027-01-17", time:"15:00", lieu:"dom", adv:"Amicale Sportive Eymetoise"},
+    {c:"Régionale 3", j:"J13", date:"2027-01-31", time:"15:00", lieu:"dom", adv:"US Roquentin Laroque Timbaut"},
+    {c:"Régionale 3", j:"J14", date:"2027-02-07", time:"15:00", lieu:"ext", adv:"4 C XV"},
+    {c:"Régionale 3", j:"J15", date:"2027-02-28", time:"15:00", lieu:"dom", adv:"La Brede Rugby"},
+    {c:"Régionale 3", j:"J16", date:"2027-03-07", time:"15:00", lieu:"ext", adv:"AS Penne St Sylvestre"},
+    {c:"Régionale 3", j:"J17", date:"2027-03-14", time:"15:00", lieu:"dom", adv:"SC Captieux"},
+    {c:"Régionale 3", j:"J18", date:"2027-03-28", time:"15:00", lieu:"ext", adv:"Rugby Association Pays Isle Dronne 33"},
+    {c:"Fédérale 1 Féminine", j:"J1", date:"2026-10-11", time:"15:00", lieu:"ext", adv:"Stado Tarbes Pyrénées Rugby"},
+    {c:"Fédérale 1 Féminine", j:"J2", date:"2026-10-18", time:"15:00", lieu:"dom", adv:"JSE SP Villeneuve de Marsan"},
+    {c:"Fédérale 1 Féminine", j:"J3", date:"2026-11-08", time:"15:00", lieu:"ext", adv:"Toulouse UC"},
+    {c:"Fédérale 1 Féminine", j:"J4", date:"2026-11-15", time:"15:00", lieu:"dom", adv:"Lons Section Paloise Rugby Féminin"},
+    {c:"Fédérale 1 Féminine", j:"J5", date:"2026-11-29", time:"15:00", lieu:"ext", adv:"Toulouse Cheminots Marengo S"},
+    {c:"Fédérale 1 Féminine", j:"J6", date:"2026-12-06", time:"15:00", lieu:"dom", adv:"US Dax Rugby"},
+    {c:"Fédérale 1 Féminine", j:"J7", date:"2027-01-31", time:"15:00", lieu:"ext", adv:"Union Athlétique Gaillacoise Rugby"},
+    {c:"Fédérale 1 Féminine", j:"J8", date:"2027-02-07", time:"15:00", lieu:"dom", adv:"Stado Tarbes Pyrénées Rugby"},
+    {c:"Fédérale 1 Féminine", j:"J9", date:"2027-02-28", time:"15:00", lieu:"ext", adv:"JSE SP Villeneuve de Marsan"},
+    {c:"Fédérale 1 Féminine", j:"J10", date:"2027-03-07", time:"15:00", lieu:"dom", adv:"Toulouse UC"},
+    {c:"Fédérale 1 Féminine", j:"J11", date:"2027-03-21", time:"15:00", lieu:"ext", adv:"Lons Section Paloise Rugby Féminin"},
+    {c:"Fédérale 1 Féminine", j:"J12", date:"2027-03-28", time:"15:00", lieu:"dom", adv:"Toulouse Cheminots Marengo S"},
+    {c:"Fédérale 1 Féminine", j:"J13", date:"2027-04-18", time:"15:00", lieu:"ext", adv:"US Dax Rugby"},
+    {c:"Fédérale 1 Féminine", j:"J14", date:"2027-04-25", time:"15:00", lieu:"dom", adv:"Union Athlétique Gaillacoise Rugby"}
   ],
-
-  /* ---------- ARCHIVE ---------- */
   "2025-2026": [
-    {c:R3, j:"J1", date:"2025-09-21", time:"15:00", lieu:"dom", adv:"Ruffec AC",                   sp:23, sc:19},
-    {c:R3, j:"J2", date:"2025-09-28", time:"15:00", lieu:"ext", adv:"SA St Maixentais",            sp:0,  sc:50},
-    {c:R3, j:"J3", date:"2025-10-05", time:"15:00", lieu:"dom", adv:"Rugby Club Saujon",           sp:27, sc:8},
-    {c:R3, j:"J4", date:"2025-10-18", time:"19:00", lieu:"ext", adv:"RC Cubzaguais",               sp:17, sc:17},
-    {c:R3, j:"J5", date:"2025-10-26", time:"15:00", lieu:"dom", adv:"Union Roumazières Chabanais", sp:25, sc:6},
-    {c:R3, j:"J6", date:"2025-11-09", time:"15:00", lieu:"ext", adv:"US Chauvinoise Rugby",        sp:9,  sc:7},
-    {c:R3, j:"J7", date:"2025-11-16", time:"15:00", lieu:"dom", adv:"Rugby Club de Loudun",        sp:38, sc:5},
-    {c:R3, j:"J8", date:"2025-11-23", time:"15:00", lieu:"dom", adv:"Marsilly Rugby Club",         sp:47, sc:3},
-    {c:R3, j:"J9", date:"2025-12-07", time:"15:00", lieu:"ext", adv:"R Ol Pontois",                sp:5,  sc:37},
-    {c:R3, j:"J10",date:"2025-12-14", time:"15:00", lieu:"ext", adv:"Ruffec AC",                   sp:26, sc:44},
-    {c:R3, j:"J11",date:"2026-01-11", time:"15:00", lieu:"dom", adv:"SA St Maixentais",            sp:0,  sc:28},
-    {c:R3, j:"J12",date:"2026-01-18", time:"15:00", lieu:"ext", adv:"Rugby Club Saujon",           sp:29, sc:31},
-    {c:R3, j:"J13",date:"2026-02-01", time:"15:00", lieu:"dom", adv:"RC Cubzaguais",               sp:5,  sc:15},
-    {c:R3, j:"J14",date:"2026-02-08", time:"15:00", lieu:"ext", adv:"Union Roumazières Chabanais", sp:7,  sc:49},
-    {c:R3, j:"J15",date:"2026-03-01", time:"15:00", lieu:"dom", adv:"US Chauvinoise Rugby",        sp:57, sc:26},
-    {c:R3, j:"J16",date:"2026-03-08", time:"15:00", lieu:"ext", adv:"Rugby Club de Loudun",        sp:11, sc:12},
-    {c:R3, j:"J17",date:"2026-03-22", time:"15:00", lieu:"ext", adv:"Marsilly Rugby Club",         sp:48, sc:26},
-    {c:R3, j:"J18",date:"2026-03-29", time:"15:00", lieu:"dom", adv:"R Ol Pontois",                sp:12, sc:45}
+    {c:"Régionale 3", j:"J1", date:"2025-09-21", time:"15:00", lieu:"dom", adv:"Ruffec AC", sp:23, sc:19},
+    {c:"Régionale 3", j:"J2", date:"2025-09-28", time:"15:00", lieu:"ext", adv:"SA St Maixentais", sp:0, sc:50},
+    {c:"Régionale 3", j:"J3", date:"2025-10-05", time:"15:00", lieu:"dom", adv:"Rugby Club Saujon", sp:27, sc:8},
+    {c:"Régionale 3", j:"J4", date:"2025-10-18", time:"19:00", lieu:"ext", adv:"RC Cubzaguais", sp:17, sc:17},
+    {c:"Régionale 3", j:"J5", date:"2025-10-26", time:"15:00", lieu:"dom", adv:"Union Roumazières Chabanais", sp:25, sc:6},
+    {c:"Régionale 3", j:"J6", date:"2025-11-09", time:"15:00", lieu:"ext", adv:"US Chauvinoise Rugby", sp:9, sc:7},
+    {c:"Régionale 3", j:"J7", date:"2025-11-16", time:"15:00", lieu:"dom", adv:"Rugby Club de Loudun", sp:38, sc:5},
+    {c:"Régionale 3", j:"J8", date:"2025-11-23", time:"15:00", lieu:"dom", adv:"Marsilly Rugby Club", sp:47, sc:3},
+    {c:"Régionale 3", j:"J9", date:"2025-12-07", time:"15:00", lieu:"ext", adv:"R Ol Pontois", sp:5, sc:37},
+    {c:"Régionale 3", j:"J10", date:"2025-12-14", time:"15:00", lieu:"ext", adv:"Ruffec AC", sp:26, sc:44},
+    {c:"Régionale 3", j:"J11", date:"2026-01-11", time:"15:00", lieu:"dom", adv:"SA St Maixentais", sp:0, sc:28},
+    {c:"Régionale 3", j:"J12", date:"2026-01-18", time:"15:00", lieu:"ext", adv:"Rugby Club Saujon", sp:29, sc:31},
+    {c:"Régionale 3", j:"J13", date:"2026-02-01", time:"15:00", lieu:"dom", adv:"RC Cubzaguais", sp:5, sc:15},
+    {c:"Régionale 3", j:"J14", date:"2026-02-08", time:"15:00", lieu:"ext", adv:"Union Roumazières Chabanais", sp:7, sc:49},
+    {c:"Régionale 3", j:"J15", date:"2026-03-01", time:"15:00", lieu:"dom", adv:"US Chauvinoise Rugby", sp:57, sc:26},
+    {c:"Régionale 3", j:"J16", date:"2026-03-08", time:"15:00", lieu:"ext", adv:"Rugby Club de Loudun", sp:11, sc:12},
+    {c:"Régionale 3", j:"J17", date:"2026-03-22", time:"15:00", lieu:"ext", adv:"Marsilly Rugby Club", sp:48, sc:26},
+    {c:"Régionale 3", j:"J18", date:"2026-03-29", time:"15:00", lieu:"dom", adv:"R Ol Pontois", sp:12, sc:45}
   ]
 };
 
-
-/* ---------- Classements des poules (source monclubhouse.ffr.fr) ---------- */
 /* Résultats de toute la poule, journée par journée (rempli chaque lundi) */
-const JOURNEES = {};
+const JOURNEES = {
+  "2026-2027": {
+    "Régionale 3": { maj:"2026-07-30", journees:[
+      {j:"J1", matchs:[["2026-09-20T15:00","SC Captieux","La Brede Rugby",null,null],["2026-09-20T15:00","SC Saint Aubin","Entente SP Bruges Blanquefort",null,null],["2026-09-20T15:00","Rugby Association Pays Isle Dronne 33","4 C XV",null,null],["2026-09-20T15:00","RC Cubzaguais","Amicale Sportive Eymetoise",null,null],["2026-09-20T15:00","US Roquentin Laroque Timbaut","AS Penne St Sylvestre",null,null]]},
+      {j:"J2", matchs:[["2026-09-27T15:00","AS Penne St Sylvestre","SC Captieux",null,null],["2026-09-27T15:00","La Brede Rugby","Rugby Association Pays Isle Dronne 33",null,null],["2026-09-27T15:00","Entente SP Bruges Blanquefort","RC Cubzaguais",null,null],["2026-09-27T15:00","4 C XV","SC Saint Aubin",null,null],["2026-09-27T15:00","US Roquentin Laroque Timbaut","Amicale Sportive Eymetoise",null,null]]},
+      {j:"J3", matchs:[["2026-10-04T15:00","Amicale Sportive Eymetoise","Entente SP Bruges Blanquefort",null,null],["2026-10-04T15:00","SC Captieux","US Roquentin Laroque Timbaut",null,null],["2026-10-04T15:00","Rugby Association Pays Isle Dronne 33","AS Penne St Sylvestre",null,null],["2026-10-04T15:00","RC Cubzaguais","4 C XV",null,null],["2026-10-04T15:00","SC Saint Aubin","La Brede Rugby",null,null]]},
+      {j:"J4", matchs:[["2026-10-18T15:00","SC Captieux","Rugby Association Pays Isle Dronne 33",null,null],["2026-10-18T15:00","La Brede Rugby","RC Cubzaguais",null,null],["2026-10-18T15:00","AS Penne St Sylvestre","SC Saint Aubin",null,null],["2026-10-18T15:00","US Roquentin Laroque Timbaut","Entente SP Bruges Blanquefort",null,null],["2026-10-18T15:00","4 C XV","Amicale Sportive Eymetoise",null,null]]},
+      {j:"J5", matchs:[["2026-10-25T15:00","RC Cubzaguais","AS Penne St Sylvestre",null,null],["2026-10-25T15:00","Entente SP Bruges Blanquefort","4 C XV",null,null],["2026-10-25T15:00","Amicale Sportive Eymetoise","La Brede Rugby",null,null],["2026-10-25T15:00","Rugby Association Pays Isle Dronne 33","US Roquentin Laroque Timbaut",null,null],["2026-10-25T15:00","SC Saint Aubin","SC Captieux",null,null]]},
+      {j:"J6", matchs:[["2026-11-08T15:00","AS Penne St Sylvestre","Amicale Sportive Eymetoise",null,null],["2026-11-08T15:00","US Roquentin Laroque Timbaut","4 C XV",null,null],["2026-11-08T15:00","La Brede Rugby","Entente SP Bruges Blanquefort",null,null],["2026-11-08T15:00","SC Captieux","RC Cubzaguais",null,null],["2026-11-08T15:00","Rugby Association Pays Isle Dronne 33","SC Saint Aubin",null,null]]},
+      {j:"J7", matchs:[["2026-11-15T15:00","4 C XV","La Brede Rugby",null,null],["2026-11-15T15:00","Amicale Sportive Eymetoise","SC Captieux",null,null],["2026-11-15T15:00","SC Saint Aubin","US Roquentin Laroque Timbaut",null,null],["2026-11-15T15:00","RC Cubzaguais","Rugby Association Pays Isle Dronne 33",null,null],["2026-11-15T15:00","Entente SP Bruges Blanquefort","AS Penne St Sylvestre",null,null]]},
+      {j:"J8", matchs:[["2026-11-22T15:00","SC Captieux","Entente SP Bruges Blanquefort",null,null],["2026-11-22T15:00","US Roquentin Laroque Timbaut","La Brede Rugby",null,null],["2026-11-22T15:00","Rugby Association Pays Isle Dronne 33","Amicale Sportive Eymetoise",null,null],["2026-11-22T15:00","AS Penne St Sylvestre","4 C XV",null,null],["2026-11-22T15:00","SC Saint Aubin","RC Cubzaguais",null,null]]},
+      {j:"J9", matchs:[["2026-12-06T15:00","La Brede Rugby","AS Penne St Sylvestre",null,null],["2026-12-06T15:00","Entente SP Bruges Blanquefort","Rugby Association Pays Isle Dronne 33",null,null],["2026-12-06T15:00","Amicale Sportive Eymetoise","SC Saint Aubin",null,null],["2026-12-06T15:00","4 C XV","SC Captieux",null,null],["2026-12-06T15:00","RC Cubzaguais","US Roquentin Laroque Timbaut",null,null]]},
+      {j:"J10", matchs:[["2026-12-13T15:00","Entente SP Bruges Blanquefort","SC Saint Aubin",null,null],["2026-12-13T15:00","AS Penne St Sylvestre","US Roquentin Laroque Timbaut",null,null],["2026-12-13T15:00","4 C XV","Rugby Association Pays Isle Dronne 33",null,null],["2026-12-13T15:00","Amicale Sportive Eymetoise","RC Cubzaguais",null,null],["2026-12-13T15:00","La Brede Rugby","SC Captieux",null,null]]},
+      {j:"J11", matchs:[["2027-01-10T15:00","Amicale Sportive Eymetoise","US Roquentin Laroque Timbaut",null,null],["2027-01-10T15:00","SC Saint Aubin","4 C XV",null,null],["2027-01-10T15:00","RC Cubzaguais","Entente SP Bruges Blanquefort",null,null],["2027-01-10T15:00","Rugby Association Pays Isle Dronne 33","La Brede Rugby",null,null],["2027-01-10T15:00","SC Captieux","AS Penne St Sylvestre",null,null]]},
+      {j:"J12", matchs:[["2027-01-17T15:00","Entente SP Bruges Blanquefort","Amicale Sportive Eymetoise",null,null],["2027-01-17T15:00","AS Penne St Sylvestre","Rugby Association Pays Isle Dronne 33",null,null],["2027-01-17T15:00","US Roquentin Laroque Timbaut","SC Captieux",null,null],["2027-01-17T15:00","4 C XV","RC Cubzaguais",null,null],["2027-01-17T15:00","La Brede Rugby","SC Saint Aubin",null,null]]},
+      {j:"J13", matchs:[["2027-01-31T15:00","RC Cubzaguais","La Brede Rugby",null,null],["2027-01-31T15:00","Rugby Association Pays Isle Dronne 33","SC Captieux",null,null],["2027-01-31T15:00","SC Saint Aubin","AS Penne St Sylvestre",null,null],["2027-01-31T15:00","Amicale Sportive Eymetoise","4 C XV",null,null],["2027-01-31T15:00","Entente SP Bruges Blanquefort","US Roquentin Laroque Timbaut",null,null]]},
+      {j:"J14", matchs:[["2027-02-07T15:00","AS Penne St Sylvestre","RC Cubzaguais",null,null],["2027-02-07T15:00","4 C XV","Entente SP Bruges Blanquefort",null,null],["2027-02-07T15:00","SC Captieux","SC Saint Aubin",null,null],["2027-02-07T15:00","La Brede Rugby","Amicale Sportive Eymetoise",null,null],["2027-02-07T15:00","US Roquentin Laroque Timbaut","Rugby Association Pays Isle Dronne 33",null,null]]},
+      {j:"J15", matchs:[["2027-02-28T15:00","RC Cubzaguais","SC Captieux",null,null],["2027-02-28T15:00","4 C XV","US Roquentin Laroque Timbaut",null,null],["2027-02-28T15:00","Entente SP Bruges Blanquefort","La Brede Rugby",null,null],["2027-02-28T15:00","SC Saint Aubin","Rugby Association Pays Isle Dronne 33",null,null],["2027-02-28T15:00","Amicale Sportive Eymetoise","AS Penne St Sylvestre",null,null]]},
+      {j:"J16", matchs:[["2027-03-07T15:00","Rugby Association Pays Isle Dronne 33","RC Cubzaguais",null,null],["2027-03-07T15:00","US Roquentin Laroque Timbaut","SC Saint Aubin",null,null],["2027-03-07T15:00","AS Penne St Sylvestre","Entente SP Bruges Blanquefort",null,null],["2027-03-07T15:00","La Brede Rugby","4 C XV",null,null],["2027-03-07T15:00","SC Captieux","Amicale Sportive Eymetoise",null,null]]},
+      {j:"J17", matchs:[["2027-03-14T15:00","Amicale Sportive Eymetoise","Rugby Association Pays Isle Dronne 33",null,null],["2027-03-14T15:00","4 C XV","AS Penne St Sylvestre",null,null],["2027-03-14T15:00","Entente SP Bruges Blanquefort","SC Captieux",null,null],["2027-03-14T15:00","La Brede Rugby","US Roquentin Laroque Timbaut",null,null],["2027-03-14T15:00","RC Cubzaguais","SC Saint Aubin",null,null]]},
+      {j:"J18", matchs:[["2027-03-28T15:00","Rugby Association Pays Isle Dronne 33","Entente SP Bruges Blanquefort",null,null],["2027-03-28T15:00","US Roquentin Laroque Timbaut","RC Cubzaguais",null,null],["2027-03-28T15:00","SC Saint Aubin","Amicale Sportive Eymetoise",null,null],["2027-03-28T15:00","SC Captieux","4 C XV",null,null],["2027-03-28T15:00","AS Penne St Sylvestre","La Brede Rugby",null,null]]}
+    ]},
+    "Fédérale 1 Féminine": { maj:"2026-07-30", journees:[
+      {j:"J1", matchs:[["2026-10-11T15:00","Stado Tarbes Pyrénées Rugby","Entente SP Bruges Blanquefort",null,null],["2026-10-11T15:00","Lons Section Paloise Rugby Féminin","Toulouse Cheminots Marengo S",null,null],["2026-10-11T15:00","Toulouse UC","US Dax Rugby",null,null],["2026-10-11T15:00","JSE SP Villeneuve de Marsan","Union Athlétique Gaillacoise Rugby",null,null]]},
+      {j:"J2", matchs:[["2026-10-18T15:00","Entente SP Bruges Blanquefort","JSE SP Villeneuve de Marsan",null,null],["2026-10-18T15:00","Stado Tarbes Pyrénées Rugby","Toulouse Cheminots Marengo S",null,null],["2026-10-18T15:00","US Dax Rugby","Lons Section Paloise Rugby Féminin",null,null],["2026-10-18T15:00","Union Athlétique Gaillacoise Rugby","Toulouse UC",null,null]]},
+      {j:"J3", matchs:[["2026-11-08T15:00","JSE SP Villeneuve de Marsan","Stado Tarbes Pyrénées Rugby",null,null],["2026-11-08T15:00","Lons Section Paloise Rugby Féminin","Union Athlétique Gaillacoise Rugby",null,null],["2026-11-08T15:00","Toulouse UC","Entente SP Bruges Blanquefort",null,null],["2026-11-08T15:00","Toulouse Cheminots Marengo S","US Dax Rugby",null,null]]},
+      {j:"J4", matchs:[["2026-11-15T15:00","Entente SP Bruges Blanquefort","Lons Section Paloise Rugby Féminin",null,null],["2026-11-15T15:00","Union Athlétique Gaillacoise Rugby","Toulouse Cheminots Marengo S",null,null],["2026-11-15T15:00","Stado Tarbes Pyrénées Rugby","US Dax Rugby",null,null],["2026-11-15T15:00","JSE SP Villeneuve de Marsan","Toulouse UC",null,null]]},
+      {j:"J5", matchs:[["2026-11-29T15:00","US Dax Rugby","Union Athlétique Gaillacoise Rugby",null,null],["2026-11-29T15:00","Lons Section Paloise Rugby Féminin","JSE SP Villeneuve de Marsan",null,null],["2026-11-29T15:00","Toulouse Cheminots Marengo S","Entente SP Bruges Blanquefort",null,null],["2026-11-29T15:00","Toulouse UC","Stado Tarbes Pyrénées Rugby",null,null]]},
+      {j:"J6", matchs:[["2026-12-06T15:00","Toulouse UC","Lons Section Paloise Rugby Féminin",null,null],["2026-12-06T15:00","JSE SP Villeneuve de Marsan","Toulouse Cheminots Marengo S",null,null],["2026-12-06T15:00","Stado Tarbes Pyrénées Rugby","Union Athlétique Gaillacoise Rugby",null,null],["2026-12-06T15:00","Entente SP Bruges Blanquefort","US Dax Rugby",null,null]]},
+      {j:"J7", matchs:[["2027-01-31T15:00","US Dax Rugby","JSE SP Villeneuve de Marsan",null,null],["2027-01-31T15:00","Lons Section Paloise Rugby Féminin","Stado Tarbes Pyrénées Rugby",null,null],["2027-01-31T15:00","Toulouse Cheminots Marengo S","Toulouse UC",null,null],["2027-01-31T15:00","Union Athlétique Gaillacoise Rugby","Entente SP Bruges Blanquefort",null,null]]},
+      {j:"J8", matchs:[["2027-02-07T15:00","Toulouse Cheminots Marengo S","Lons Section Paloise Rugby Féminin",null,null],["2027-02-07T15:00","Union Athlétique Gaillacoise Rugby","JSE SP Villeneuve de Marsan",null,null],["2027-02-07T15:00","US Dax Rugby","Toulouse UC",null,null],["2027-02-07T15:00","Entente SP Bruges Blanquefort","Stado Tarbes Pyrénées Rugby",null,null]]},
+      {j:"J9", matchs:[["2027-02-28T15:00","Toulouse UC","Union Athlétique Gaillacoise Rugby",null,null],["2027-02-28T15:00","Toulouse Cheminots Marengo S","Stado Tarbes Pyrénées Rugby",null,null],["2027-02-28T15:00","JSE SP Villeneuve de Marsan","Entente SP Bruges Blanquefort",null,null],["2027-02-28T15:00","Lons Section Paloise Rugby Féminin","US Dax Rugby",null,null]]},
+      {j:"J10", matchs:[["2027-03-07T15:00","Stado Tarbes Pyrénées Rugby","JSE SP Villeneuve de Marsan",null,null],["2027-03-07T15:00","US Dax Rugby","Toulouse Cheminots Marengo S",null,null],["2027-03-07T15:00","Union Athlétique Gaillacoise Rugby","Lons Section Paloise Rugby Féminin",null,null],["2027-03-07T15:00","Entente SP Bruges Blanquefort","Toulouse UC",null,null]]},
+      {j:"J11", matchs:[["2027-03-21T15:00","US Dax Rugby","Stado Tarbes Pyrénées Rugby",null,null],["2027-03-21T15:00","Lons Section Paloise Rugby Féminin","Entente SP Bruges Blanquefort",null,null],["2027-03-21T15:00","Toulouse Cheminots Marengo S","Union Athlétique Gaillacoise Rugby",null,null],["2027-03-21T15:00","Toulouse UC","JSE SP Villeneuve de Marsan",null,null]]},
+      {j:"J12", matchs:[["2027-03-28T15:00","Union Athlétique Gaillacoise Rugby","US Dax Rugby",null,null],["2027-03-28T15:00","Entente SP Bruges Blanquefort","Toulouse Cheminots Marengo S",null,null],["2027-03-28T15:00","Stado Tarbes Pyrénées Rugby","Toulouse UC",null,null],["2027-03-28T15:00","JSE SP Villeneuve de Marsan","Lons Section Paloise Rugby Féminin",null,null]]},
+      {j:"J13", matchs:[["2027-04-18T15:00","Union Athlétique Gaillacoise Rugby","Stado Tarbes Pyrénées Rugby",null,null],["2027-04-18T15:00","US Dax Rugby","Entente SP Bruges Blanquefort",null,null],["2027-04-18T15:00","Lons Section Paloise Rugby Féminin","Toulouse UC",null,null],["2027-04-18T15:00","Toulouse Cheminots Marengo S","JSE SP Villeneuve de Marsan",null,null]]},
+      {j:"J14", matchs:[["2027-04-25T15:00","Toulouse UC","Toulouse Cheminots Marengo S",null,null],["2027-04-25T15:00","Entente SP Bruges Blanquefort","Union Athlétique Gaillacoise Rugby",null,null],["2027-04-25T15:00","JSE SP Villeneuve de Marsan","US Dax Rugby",null,null],["2027-04-25T15:00","Stado Tarbes Pyrénées Rugby","Lons Section Paloise Rugby Féminin",null,null]]}
+    ]}
+  }
+};
 
 const CLASSEMENTS = {
   "2026-2027": {
-    "Régionale 3": { maj:"2026-07-29", debut:"2026-09-20", lignes:[
+    "Régionale 3": { maj:"2026-07-30", debut:"2026-09-20", lignes:[
       ["AS Penne St Sylvestre",0,0,0,0,0,0,0],
       ["Amicale Sportive Eymetoise",0,0,0,0,0,0,0],
       ["La Brede Rugby",0,0,0,0,0,0,0],
@@ -620,7 +652,7 @@ const CLASSEMENTS = {
       ["SC Captieux",0,0,0,0,0,0,0],
       ["US Roquentin Laroque Timbaut",0,0,0,0,0,0,0]
     ]},
-    "Fédérale 1 Féminine": { maj:"2026-07-29", debut:"2026-10-11", lignes:[
+    "Fédérale 1 Féminine": { maj:"2026-07-30", debut:"2026-10-11", lignes:[
       ["Entente SP Bruges Blanquefort",0,0,0,0,0,0,0],
       ["JSE SP Villeneuve de Marsan",0,0,0,0,0,0,0],
       ["US Dax Rugby",0,0,0,0,0,0,0],
