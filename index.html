@@ -362,9 +362,21 @@
     html.esbb-court .esbb-slab,html.esbb-court .esbb-face{animation-duration:.55s}
     html.esbb-court .esbb-stage i:nth-of-type(9){animation-delay:.18s}
   }
+  /* --- « Réduire les animations » activé (réglages d'accessibilité) ---
+     Il ne faut PAS écraser la durée à 0,01 s : le balancement du blason est
+     déclaré « infinite alternate », il se met alors à vibrer 50 fois par seconde
+     et la barre se remplit d'un coup. On coupe donc les animations et on place
+     directement chaque élément dans son état final. */
   @media (prefers-reduced-motion:reduce){
-    #esbb-loader *{animation-duration:.01s!important;animation-delay:0s!important}
-    .esbb-face,.esbb-slab{mask-position:0 0!important;-webkit-mask-position:0 0!important;opacity:1!important}}
+    #esbb-loader *,#esbb-loader{animation:none!important;transition:none!important}
+    .esbb-stage{transform:rotateX(6deg) rotateY(0deg)!important}
+    .esbb-face,.esbb-slab{opacity:1!important;
+      mask-position:0 0!important;-webkit-mask-position:0 0!important;
+      mask-image:none!important;-webkit-mask-image:none!important}
+    .esbb-words b{opacity:1!important;transform:none!important}
+    .esbb-shadow{opacity:.5!important}
+    .esbb-track i{transform:scaleX(1)!important}
+  }
 </style>
 <script>
 /* Intro vue dans les 12 dernières heures : on la joue en version courte.
@@ -931,6 +943,11 @@ renderSeasons(); renderAll(); save();
 
   // intro déjà vue récemment : même animation, mais raccourcie
   if (/\besbb-court\b/.test(document.documentElement.className)) ESBB_MIN_MS = 1250;
+  // animations réduites : rien à regarder, on abrège
+  try {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)
+      ESBB_MIN_MS = Math.min(ESBB_MIN_MS, 900);
+  } catch(e) {}
   try { localStorage.setItem('esbb-intro', String(Date.now())); } catch(e) {}
   el.addEventListener('click', function(){ hide(); });   // un appui passe l'intro
 
