@@ -323,39 +323,56 @@
   @keyframes esbb-line-in{from{opacity:0;transform:translate3d(0,-11px,42px)}to{opacity:1;transform:translate3d(0,0,0)}}
   @keyframes esbb-floor{from{opacity:0}to{opacity:.5}}
   @keyframes esbb-bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  /* --- petits écrans : version à plat, sans 3D ni masque animé (fiable sur iOS) --- */
+  /* --- petits écrans : on garde la 3D, on répare ce qui casse sur Safari iOS ---
+     1. « zoom » sur un élément en perspective : remplacé par un scale du parent
+     2. l'animation de masque (le blason qui monte) n'est pas fiable sur iOS :
+        remplacée par une apparition en fondu, épaisseur par épaisseur.
+        On ne touche pas à « transform », sinon la pile 3D s'effondrerait. */
   @media (max-width:720px){
-    .esbb-persp{perspective:none;perspective-origin:50% 50%}
-    .esbb-stage{width:300px;height:330px;transform:none!important;transform-style:flat;animation:none}
-    .esbb-shadow,.esbb-slab{display:none}
-    .esbb-face{left:0;top:0;width:300px;height:300px;background-size:300px 300px;
-      transform:none;opacity:0;
-      mask-image:none;-webkit-mask-image:none;
-      animation:esbb-pop .9s cubic-bezier(.2,.75,.3,1) .15s forwards;
-      filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
-    .esbb-words{top:24px;gap:0;transform:none;transform-style:flat}
-    .esbb-words b{font-size:23px;transform:none}
-    .esbb-words b:nth-child(1){font-size:23px;animation-delay:.5s}
-    .esbb-words b:nth-child(2){font-size:19.5px;animation-delay:.62s}
-    .esbb-words b:nth-child(3){font-size:23px;animation-delay:.74s}
-    .esbb-words b:nth-child(4){font-size:14px;margin-top:5px;animation-delay:.86s}
-    @keyframes esbb-line-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    .esbb-persp{transform:scale(.6);transform-origin:50% 42%}
+    .esbb-slab,.esbb-face{mask-image:none;-webkit-mask-image:none;
+      animation:esbb-fondu .7s ease-out both}
+    .esbb-stage i:nth-of-type(2){animation-delay:0.00s}
+    .esbb-stage i:nth-of-type(3){animation-delay:0.02s}
+    .esbb-stage i:nth-of-type(4){animation-delay:0.04s}
+    .esbb-stage i:nth-of-type(5){animation-delay:0.06s}
+    .esbb-stage i:nth-of-type(6){animation-delay:0.08s}
+    .esbb-stage i:nth-of-type(7){animation-delay:0.10s}
+    .esbb-stage i:nth-of-type(8){animation-delay:0.12s}
+    .esbb-stage i:nth-of-type(9){animation-delay:.30s}
+    .esbb-shadow{animation-delay:.35s}
   }
-  @keyframes esbb-pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
-  /* --- intro déjà vue récemment : aucun voile, aucun clignotement --- */
-  html.esbb-vu #esbb-loader{display:none!important}
-  html.esbb-vu,html.esbb-vu body{overflow:visible!important}
+  @keyframes esbb-fondu{from{opacity:0}to{opacity:1}}
+  /* si le découpage en forme d'écusson n'est pas géré (iOS < 15.4),
+     on masque les épaisseurs : le blason garde son liseré rouge propre */
+  @supports not (clip-path: path("M 0 0 L 1 1")){
+    .esbb-slab{display:none}
+  }
+
+  /* --- intro déjà vue récemment : version courte, pas de suppression --- */
+  html.esbb-court .esbb-slab,html.esbb-court .esbb-face{animation-duration:.7s;animation-delay:.04s}
+  html.esbb-court .esbb-shadow{animation-duration:.55s;animation-delay:.12s}
+  html.esbb-court .esbb-track i{animation-duration:1s;animation-delay:.04s}
+  html.esbb-court .esbb-stage{animation-delay:.85s}
+  html.esbb-court .esbb-words b:nth-child(1){animation-delay:.42s}
+  html.esbb-court .esbb-words b:nth-child(2){animation-delay:.50s}
+  html.esbb-court .esbb-words b:nth-child(3){animation-delay:.58s}
+  html.esbb-court .esbb-words b:nth-child(4){animation-delay:.66s}
+  @media (max-width:720px){
+    html.esbb-court .esbb-slab,html.esbb-court .esbb-face{animation-duration:.55s}
+    html.esbb-court .esbb-stage i:nth-of-type(9){animation-delay:.18s}
+  }
   @media (prefers-reduced-motion:reduce){
     #esbb-loader *{animation-duration:.01s!important;animation-delay:0s!important}
     .esbb-face,.esbb-slab{mask-position:0 0!important;-webkit-mask-position:0 0!important;opacity:1!important}}
 </style>
 <script>
-/* L'intro ne rejoue pas si elle a été vue dans les 12 dernières heures :
-   on décide ici, avant le premier tracé, pour éviter tout clignotement. */
+/* Intro vue dans les 12 dernières heures : on la joue en version courte.
+   La décision se prend ici, avant le premier tracé. */
 (function(){
   try{
     var t = +localStorage.getItem("esbb-intro") || 0;
-    if (Date.now() - t < 12*3600*1000) document.documentElement.className += " esbb-vu";
+    if (Date.now() - t < 12*3600*1000) document.documentElement.className += " esbb-court";
   }catch(e){}
 })();
 </script>
@@ -907,20 +924,13 @@ renderSeasons(); renderAll(); save();
 </script>
 <script id="esbb-loader-js">
 (function () {
-  var ESBB_MIN_MS = 3200;   // durée mini d'affichage (fin de l'animation)
+  var ESBB_MIN_MS = 3200;   // durée mini d'affichage (1250 ms si l'intro a déjà été vue)
   var ESBB_MAX_MS = 5000;   // filet de sécurité si quelque chose ne charge pas
   var el = document.getElementById('esbb-loader');
   if (!el) return;
 
-  // intro déjà vue récemment : on retire tout de suite
-  if (/\besbb-vu\b/.test(document.documentElement.className)) {
-    el.parentNode && el.parentNode.removeChild(el);
-    document.documentElement.classList.remove('esbb-loading');
-    document.addEventListener('DOMContentLoaded', function(){
-      document.body && document.body.classList.remove('esbb-loading');
-    });
-    return;
-  }
+  // intro déjà vue récemment : même animation, mais raccourcie
+  if (/\besbb-court\b/.test(document.documentElement.className)) ESBB_MIN_MS = 1250;
   try { localStorage.setItem('esbb-intro', String(Date.now())); } catch(e) {}
   el.addEventListener('click', function(){ hide(); });   // un appui passe l'intro
 
