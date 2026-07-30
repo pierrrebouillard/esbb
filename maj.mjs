@@ -23,16 +23,20 @@ const SAISON = "2026-2027";
 // Ils se lisent sur https://monclubhouse.ffr.fr/clubs/entente-sp-bruges-blanquefort/equipes
 // (liens en qualification-XXXXX), et l'identifiant de poule apparait dans la page
 // de la competition, cle "pouleId".
+//
+// Tout vient de la page de POULE, verifie sur la saison 2025-2026 :
+//   - l'adresse racine ......... porte le classement complet
+//   - .../calendrier-resultats . porte les 18 journees et les scores
+//   - .../classement ........... est chargee par le navigateur : elle ne contient rien
+//   - la fiche club ............ ne donne que le nombre de points, sans le detail
 const COMPETITIONS = [
   {
     nom: "Régionale 3",
-    club: "https://monclubhouse.ffr.fr/clubs/entente-sp-bruges-blanquefort/competitions/nouvelle-aquitaine-regionale-3-championnat-territorial/qualification-50143",
-    poule: "https://monclubhouse.ffr.fr/regionales/nouvelle-aquitaine/nouvelle-aquitaine-regionale-3-championnat-territorial/qualification-50143/73076/calendrier-resultats",
+    poule: "https://monclubhouse.ffr.fr/regionales/nouvelle-aquitaine/nouvelle-aquitaine-regionale-3-championnat-territorial/qualification-50143/73076",
   },
   {
     nom: "Fédérale 1 Féminine",
-    club: "https://monclubhouse.ffr.fr/clubs/entente-sp-bruges-blanquefort/competitions/federale-1-feminine/qualification-50138",
-    poule: "https://monclubhouse.ffr.fr/nationales/federale-1-feminine/qualification-50138/73056/calendrier-resultats",
+    poule: "https://monclubhouse.ffr.fr/nationales/federale-1-feminine/qualification-50138/73056",
   },
 ];
 
@@ -68,12 +72,10 @@ async function chargerFlux(url) {
 }
 
 /* --------------------------- extraction d'un objet JSON par equilibrage
-   On part d'une cle connue, on remonte a l'accolade ouvrante, puis on avance
-   en comptant les accolades tout en sautant le contenu des chaines. */
+   On avance depuis une accolade ouvrante en comptant les accolades, tout en
+   sautant le contenu des chaines de caracteres. */
 
-function objetAutour(flux, position) {
-  const deb = flux.lastIndexOf("{", position);
-  if (deb < 0) return null;
+function balancer(flux, deb) {
   let prof = 0;
   for (let k = deb; k < flux.length; k++) {
     const c = flux[k];
@@ -94,6 +96,24 @@ function objetAutour(flux, position) {
   return null;
 }
 
+/* On part d'une cle connue et on remonte d'accolade en accolade jusqu'a
+   trouver l'objet qui contient reellement toutes les cles attendues.
+   L'ordre des cles change d'une page a l'autre : sur la fiche club, la cle
+   d'ancrage n'est pas la premiere de son objet, et remonter d'une seule
+   accolade tomberait sur un sous-objet. */
+
+function objetEnglobant(flux, position, cles) {
+  let deb = position + 1;
+  for (let essai = 0; essai < 40; essai++) {
+    deb = flux.lastIndexOf("{", deb - 1);
+    if (deb < 0) return null;
+    const r = balancer(flux, deb);
+    if (!r || r.fin <= position) continue; // objet referme avant la cle : trop court
+    if (r.obj && cles.every((c) => c in r.obj)) return r;
+  }
+  return null;
+}
+
 /* --------------------------------- toutes les rencontres de la poule
    La page de poule livre un objet par journee :
    { listTitle:"Journee N", listData:[ { dateEffective, scores, equipes } ] } */
@@ -104,10 +124,9 @@ export function extraireJournees(flux) {
   while (true) {
     const i = flux.indexOf('"listTitle":"Journ', p);
     if (i < 0) break;
-    const r = objetAutour(flux, i);
-    if (!r) break;
-    p = r.fin;
-    const o = r.obj;
+    const r = objetEnglobant(flux, i, ["listTitle", "listData"]);
+    p = Math.max(r ? r.fin : 0, i + 1);
+    const o = r && r.obj;
     if (!o) continue;
     const num = String(o.listTitle || "").match(/(\d+)/);
     if (!num) continue;
@@ -139,44 +158,54 @@ export function extraireJournees(flux) {
 
 /* ------------------------------------------------ extraction du classement */
 
+/* Noms de champs relevés sur une saison réellement jouée
+   (poule 2025-2026 de Régionale 3, classement final) :
+     pointTerrain, joues, gagnes, nuls, perdus,
+     pointsDeMarqueAcquis, pointsDeMarqueConcedes, bonusOffensif, bonusDefensif
+   Les autres noms sont gardés en secours au cas où la FFR change sa structure. */
 const CLES = {
-  points: ["points", "pointsTerrain", "pointTerrain", "total"],
+  points: ["pointTerrain", "points", "total"],
   joues: ["joues", "nbMatchs", "rencontresJouees", "matchsJoues"],
   gagnes: ["gagnes", "victoires", "nbVictoires"],
   nuls: ["nuls", "nbNuls", "egalites"],
   perdus: ["perdus", "defaites", "nbDefaites"],
-  pour: ["pointsMarques", "pointsPour"],
-  contre: ["pointsConcedes", "pointsEncaisses", "pointsContre"],
+  pour: ["pointsDeMarqueAcquis", "pointsMarques", "pointsPour"],
+  contre: ["pointsDeMarqueConcedes", "pointsConcedes", "pointsEncaisses", "pointsContre"],
 };
 const valeur = (o, noms) => {
   for (const n of noms) if (typeof o[n] === "number") return o[n];
   return 0;
 };
 
+/* L'ordre des cles varie selon le type de page (fiche club ou page de poule).
+   On isole donc l'objet entier par equilibrage d'accolades, puis on lit par nom. */
 export function extraireClassement(flux) {
   const lignes = [];
   const brut = [];
-  const re = /"id":(\d+),"position":(\d+),"competitionEquipeId":\{/g;
-  let m;
-  while ((m = re.exec(flux)) !== null) {
-    const fen = flux.slice(m.index, m.index + 4000);
-    const nom = fen.match(/"nomEdito":"((?:[^"\\]|\\.)*)"/);
-    const cl = fen.match(/"classementId":\{([^{}]*)\}/);
-    if (!nom) continue;
-    let stats = {};
-    if (cl) { try { stats = JSON.parse("{" + cl[1] + "}"); } catch { /* structure inattendue */ } }
-    const club = JSON.parse(`"${nom[1]}"`);
-    if (lignes.some((l) => l.club === club)) continue;
-    brut.push({ club, position: Number(m[2]), stats });
+  const vus = new Set();
+  let p = 0;
+  while (true) {
+    const i = flux.indexOf('"classementId":{', p);
+    if (i < 0) break;
+    const r = objetEnglobant(flux, i, ["classementId", "competitionEquipeId"]);
+    p = Math.max(r ? r.fin : 0, i + 1);
+    const o = r && r.obj;
+    if (!o) continue;
+    const club = (o.competitionEquipeId || {}).nomEdito;
+    if (!club || vus.has(club)) continue;
+    vus.add(club);
+    const st = o.classementId || {};
+    brut.push({ club, position: o.position ?? null, stats: st });
     lignes.push({
-      club, position: Number(m[2]),
-      points: valeur(stats, CLES.points),
-      joues: valeur(stats, CLES.joues),
-      gagnes: valeur(stats, CLES.gagnes),
-      nuls: valeur(stats, CLES.nuls),
-      perdus: valeur(stats, CLES.perdus),
-      pour: valeur(stats, CLES.pour),
-      contre: valeur(stats, CLES.contre),
+      club,
+      position: o.position ?? 0,
+      points: Math.round(valeur(st, CLES.points)),
+      joues: valeur(st, CLES.joues),
+      gagnes: valeur(st, CLES.gagnes),
+      nuls: valeur(st, CLES.nuls),
+      perdus: valeur(st, CLES.perdus),
+      pour: valeur(st, CLES.pour),
+      contre: valeur(st, CLES.contre),
     });
   }
   return { lignes, brut };
@@ -295,7 +324,7 @@ async function principal() {
     /* ---------- 1. la poule : toutes les rencontres ---------- */
     let journees = [];
     try {
-      const flux = await chargerFlux(comp.poule);
+      const flux = await chargerFlux(comp.poule + "/calendrier-resultats");
       journees = extraireJournees(flux).map((x) => ({
         j: x.j,
         matchs: x.matchs.map((m) => [m[0], nomFichier(m[1]), nomFichier(m[2]), m[3], m[4]]),
@@ -349,22 +378,26 @@ async function principal() {
       }
     }
 
-    /* ---------- 2. la fiche club : le classement ---------- */
+    /* ---------- 2. la page de poule : le classement ---------- */
     try {
-      const flux = await chargerFlux(comp.club);
+      const flux = await chargerFlux(comp.poule);
       const { lignes, brut } = extraireClassement(flux);
       info.classement = lignes.length;
-      info.classementBrut = brut.slice(0, 3);
-      log(`  classement : ${lignes.length} lignes`);
+      info.classementBrut = brut.slice(0, 2);
+      /* alerte si la FFR ne sert plus que les points, sans le detail */
+      info.detailClassement = lignes.some((l) => l.joues > 0);
+      log(`  classement : ${lignes.length} lignes${lignes.length && !info.detailClassement ? " (points seuls, sans détail)" : ""}`);
       if (lignes.length >= 4) {
         const cl = (CLASSEMENTS[SAISON] ||= {});
         const ancien = cl[comp.nom];
+        const table = lignes.map((l) => [nomFichier(l.club), l.points, l.joues, l.gagnes, l.nuls, l.perdus, l.pour, l.contre]);
+        const change = JSON.stringify((ancien || {}).lignes || []) !== JSON.stringify(table);
         cl[comp.nom] = {
-          maj: aujourdhui,
+          maj: change || !ancien ? aujourdhui : ancien.maj,
           debut: ancien ? ancien.debut : (matchs.find((m) => m.c === comp.nom) || {}).date || aujourdhui,
-          lignes: lignes.map((l) => [nomFichier(l.club), l.points, l.joues, l.gagnes, l.nuls, l.perdus, l.pour, l.contre]),
+          lignes: table,
         };
-        classements++;
+        if (change) classements++;
       }
     } catch (e) {
       info.erreurClassement = e.message;
