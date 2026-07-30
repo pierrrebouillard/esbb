@@ -289,7 +289,7 @@
   html.esbb-loading,body.esbb-loading{overflow:hidden}
   .esbb-persp{perspective:1500px;perspective-origin:50% 44%}
   .esbb-stage{position:relative;width:480px;height:520px;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform;
-    animation:esbb-swing 7s cubic-bezier(.37,0,.63,1) 2.5s infinite alternate both}
+    animation:esbb-swing 3.4s cubic-bezier(.37,0,.63,1) .5s 1 normal both}
   .esbb-shadow{position:absolute;left:50%;top:452px;width:300px;height:80px;margin-left:-150px;filter:blur(7px);opacity:0;
     background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.8) 0,rgba(0,0,0,0) 72%);transform:translateZ(-46px);
     animation:esbb-floor 1.4s cubic-bezier(.33,.8,.4,1) .5s forwards}
@@ -316,8 +316,8 @@
     text-shadow:1px 1px 0 #1c4d80,2px 2px 0 #184472,3px 3px 0 #143a63}
   .esbb-track{width:208px;height:2px;background:rgba(245,244,242,.14);overflow:hidden}
   .esbb-track i{display:block;width:100%;height:100%;background:#c8102e;transform:scaleX(0);transform-origin:0 50%;
-    animation:esbb-bar 2s cubic-bezier(.3,.35,.3,1) .24s forwards}
-  @keyframes esbb-swing{from{transform:rotateX(6deg) rotateY(-11deg)}to{transform:rotateX(6deg) rotateY(11deg)}}
+    animation:esbb-bar 1.7s cubic-bezier(.3,.35,.3,1) .2s forwards}
+  @keyframes esbb-swing{from{transform:rotateX(6deg) rotateY(-12deg)}to{transform:rotateX(6deg) rotateY(7deg)}}
   @keyframes esbb-build{from{mask-position:0 -505px;-webkit-mask-position:0 -505px;opacity:0}
     6%{opacity:1}to{mask-position:0 0;-webkit-mask-position:0 0;opacity:1}}
   @keyframes esbb-line-in{from{opacity:0;transform:translate3d(0,-11px,42px)}to{opacity:1;transform:translate3d(0,0,0)}}
@@ -936,6 +936,7 @@ renderSeasons(); renderAll(); save();
 </script>
 <script id="esbb-loader-js">
 (function () {
+  window.ESBB_VERSION = 4;   // repère : permet de vérifier quelle version est chargée
   var ESBB_MIN_MS = 3200;   // durée mini d'affichage (1250 ms si l'intro a déjà été vue)
   var ESBB_MAX_MS = 5000;   // filet de sécurité si quelque chose ne charge pas
   var el = document.getElementById('esbb-loader');
