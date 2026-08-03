@@ -1,5 +1,5 @@
 {
-  "date": "2026-07-30",
+  "date": "2026-08-03",
   "competitions": {
     "Régionale 3": {
       "journees": 18,
@@ -10,7 +10,7 @@
           "club": "AS Penne St Sylvestre",
           "position": 0,
           "stats": {
-            "id": 83090461,
+            "id": 83165704,
             "regulationPointsTerrain": null,
             "pointTerrain": 0,
             "joues": 0,
@@ -24,15 +24,15 @@
             "essaiConcedes": null,
             "bonusOffensif": 0,
             "bonusDefensif": 0,
-            "createdAt": "2026-07-30T02:04:57.387Z",
-            "updatedAt": "2026-07-30T02:04:57.371Z"
+            "createdAt": "2026-08-03T01:44:31.234Z",
+            "updatedAt": "2026-08-03T01:44:31.214Z"
           }
         },
         {
           "club": "Amicale Sportive Eymetoise",
           "position": 0,
           "stats": {
-            "id": 83090474,
+            "id": 83165720,
             "regulationPointsTerrain": null,
             "pointTerrain": 0,
             "joues": 0,
@@ -46,8 +46,8 @@
             "essaiConcedes": null,
             "bonusOffensif": 0,
             "bonusDefensif": 0,
-            "createdAt": "2026-07-30T02:04:57.395Z",
-            "updatedAt": "2026-07-30T02:04:57.384Z"
+            "createdAt": "2026-08-03T01:44:31.247Z",
+            "updatedAt": "2026-08-03T01:44:31.226Z"
           }
         }
       ],
@@ -62,7 +62,7 @@
           "club": "Entente Sp Bruges Blanquefort",
           "position": 0,
           "stats": {
-            "id": 83090083,
+            "id": 83165316,
             "regulationPointsTerrain": null,
             "pointTerrain": 0,
             "joues": 0,
@@ -76,15 +76,15 @@
             "essaiConcedes": null,
             "bonusOffensif": 0,
             "bonusDefensif": 0,
-            "createdAt": "2026-07-30T02:04:51.266Z",
-            "updatedAt": "2026-07-30T02:04:51.251Z"
+            "createdAt": "2026-08-03T01:44:28.636Z",
+            "updatedAt": "2026-08-03T01:44:28.622Z"
           }
         },
         {
           "club": "Jse Sp Villeneuve de Marsan",
           "position": 0,
           "stats": {
-            "id": 83090093,
+            "id": 83165322,
             "regulationPointsTerrain": null,
             "pointTerrain": 0,
             "joues": 0,
@@ -98,8 +98,8 @@
             "essaiConcedes": null,
             "bonusOffensif": 0,
             "bonusDefensif": 0,
-            "createdAt": "2026-07-30T02:04:51.275Z",
-            "updatedAt": "2026-07-30T02:04:51.259Z"
+            "createdAt": "2026-08-03T01:44:28.641Z",
+            "updatedAt": "2026-08-03T01:44:28.627Z"
           }
         }
       ],
